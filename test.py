@@ -2,20 +2,23 @@
  
 import aiml
 import yaml
+import glob
 k = aiml.Kernel()
 config = yaml.safe_load(open('config.yaml'))
 # load the aiml file
 
+aiml_list = glob.glob('aiml/*.aiml')
+print aiml_list
+for i in aiml_list:
+    k.learn(i)
+k.learn('aiml/c.aiml')
 
-k.learn("aiml/first.aiml")
-k.learn("aiml/bot.aiml")
 for key, value in config.items():
     k.setPredicate(key, value)
-
-k.setPredicate("bot_location", 'Chicago')
-k.setPredicate("bot_location", 'Chicago')
 #k.setBotPredicate("bot_location", 'Irreligion')
+k.saveBrain('./brain')
 
+k.loadBrain('./brain')
 while True:
     input = raw_input("> ")
 
