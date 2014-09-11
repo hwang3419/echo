@@ -6,33 +6,13 @@
       xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
  
 <category>
-        <pattern>WHO IS MESSI</pattern>
-	<template>Messi is the greatest player in the world!!!</template>
-</category>
-
-<category>
-        <pattern>* MESSI</pattern>
-    <template>Messi is the greatest player in the world!!!</template>
-</category>
-
-<category>
-        <pattern>MESSI</pattern>
-    <template>Messi is the greatest player in the world!!!</template>
+        <pattern>*</pattern>
+	<template>Hello,   I'm glad to see you</template>
 </category>
  
 <category>
-        <pattern>MESSI *</pattern>
-    <template>Messi is the greatest player in the world!!!</template>
+        <pattern>WHAT IS YOUR NAME</pattern>
+        <template>My name is <bot name="name"></bot></template>
 </category>
-
-<category>
-        <pattern>HAHA</pattern>
-    <template>HAHA</template>
-</category>
-
-<category>
-        <pattern>HA HA</pattern>
-    <template>HAHA</template>
-</category>
-
+ 
 </aiml>
