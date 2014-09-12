@@ -15,7 +15,7 @@ k.learn("aiml/c.aiml")
 for key, value in config.items():
     k.setPredicate(key, value)
 
-k.saveBrain('/brain')
+k.saveBrain('./brain')
 
 while True:
     input = raw_input("> ")
