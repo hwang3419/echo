@@ -13,15 +13,8 @@ for i in aimllist:
 
 k.learn("aiml/c.aiml")
 for key, value in config.items():
+    print key
     k.setPredicate(key, value)
 
 k.saveBrain('./brain')
 
-while True:
-    input = raw_input("> ")
-
-    response = k.respond(input)
-
-    # print out on the shell
-    print response
-    # and as speech
