@@ -14,7 +14,9 @@ k.loadBrain(B)
 for key, value in config.items():
     k.setPredicate(key, value)
 def answer(request):
-    r = k.respond('where are you')
+    msg = request.GET.get('message')
+    print msg
+    r = k.respond(msg)
     return HttpResponse(r)
 
 def home(request):
