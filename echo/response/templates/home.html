@@ -27,7 +27,8 @@
           if (message == ""){
             return
           }
-          $("#incomingMessages").append("<div class='message'><span class='username'>" + 'YOU' + ":</span> " + message + "</div>");
+          $("#incomingMessages").append("<div class='message chatyoubox'><span class='username'>" + 'YOU' + ":</span> " + message + "</div>");
+          //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
           $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
           $("#messageText1").val("");
           $.ajax({
@@ -37,10 +38,11 @@
                 xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
               }
             })
-          .done(function( data ) {
-            if ( console && console.log ) {
-              console.log( "Sample of data:", data.slice( 0, 100 ) );
-            }
+          .success(function( data ) {
+             console.log( 'success: '+data );
+             $("#incomingMessages").append("<div class='message chatechoubox'><span class='username'>" + 'Echo' + ":</span> " + data + "</div>");
+             //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
+             $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
             });
         });
          
@@ -53,6 +55,20 @@
         overflow-y: scroll;
         height: 250px;
       }
+.chatyoubox
+{
+   border-radius: 5px 5px  5px 5px;
+   background-color: #34AADC;
+   color:white;
+   padding: 10px 10px;
+}
+
+.chatechoubox
+{
+   border-radius: 5px 5px 5px 5px;
+   background-color: #C7C7CC;
+   padding: 10px 10px;
+}
 </style>
 
 
@@ -76,7 +92,7 @@
         </div>
  
         <div data-role="footer">
-            <h4>Echo</h4>
+            <h7>Echo:hwang.iit@gmail.com</h7>
         </div>
     </div>
 
