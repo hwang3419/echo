@@ -18,10 +18,10 @@ if os.environ.get('OPENSHIFT_MYSQL_DB_HOST',None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'm10',                      # Or path to database file if using sqlite3.
+            'NAME': 'echo',                      # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
-            'USER': 'adminsGdywJN',
-            'PASSWORD': 'L8X41ByzqFzi',
+            'USER': 'adminltANZST',
+            'PASSWORD': 'bYM_etC6Kjph',
             'HOST': os.environ.get('OPENSHIFT_MYSQL_DB_HOST'),                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
             'PORT': os.environ.get('OPENSHIFT_MYSQL_DB_PORT'),                      # Set to empty string for default.
         }
