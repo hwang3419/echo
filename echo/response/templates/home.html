@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+         
+        //now.receiveMessage = function(name, message){
+          //$("#incomingMessages").append("<div class='message'><span class='username'>" + name + ":</span> " + message + "</div>");
+          //$("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
+        //}
+        $(document).keypress(function(e){
+            if (e.which == 13){
+                $("#chatSendButton").click();
+                return false;
+            }
+        });
+        for  (i=0;i<20;i++){
+            $("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> " + "</div>");
+        }
+        $("#chatSendButton").click(function(){
+          var message = $("#messageText1").val()
+          if (message == ""){
+            return
+          }
+          $("#incomingMessages").append("<div class='message chatyoubox'><span class='username'>" + 'YOU' + ":</span> " + message + "</div>");
+          //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
+          $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
+          $("#messageText1").val("");
+          $.ajax({
+              url: "ask",
+              data: {message:message},
+              beforeSend: function( xhr ) {
+                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+              }
+            })
+          .success(function( data ) {
+             console.log( 'success: '+data );
+             $("#incomingMessages").append("<div class='message chatechoubox'><span class='username'>" + 'Echo' + ":</span> " + data + "</div>");
+             //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
+             $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
+            });
+        });
+         
+      });
+
+</script>
+<style type="text/css">
+.msgContainerDiv
+      {
+        overflow-y: scroll;
+        height: 250px;
+      }
+.chatyoubox
+{
+   border-radius: 5px 5px  5px 5px;
+   background-color: #34AADC;
+   color:white;
+   padding: 10px 10px;
+}
+
+.chatechoubox
+{
+   border-radius: 5px 5px 5px 5px;
+   background-color: #C7C7CC;
+   padding: 10px 10px;
+}
+</style>
+
+
+</head>
+
+<body>
+  <div data-role="page" id="chatPage" data-role="page" data-theme="a">
+ 
+        <!--div data-role="header">
+
+        </div-->
+ 
+        <div data-role="content"> 
+        <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
+        <label for="messageText"><strong>Message:</strong></label>
+        <textarea name="messageText" id="messageText1"></textarea>
+ 
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-b"><button data-theme="a" id="chatSendButton" name="chatSendButton">Send</input>
+        </fieldset>
+        </div>
+ 
+        <div data-role="footer">
+            <h7>Echo:hwang.iit@gmail.com</h7>
+        </div>
+    </div>
+
+</body>
+
+</html>
