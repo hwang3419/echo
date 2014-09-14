@@ -42,7 +42,7 @@
     'question': 
       - "are you never tired to do the same things every day?"
       - "Say something nice to me"
-    'name': "friend"
+    'name': "Echo"
     'topic': 'general'
     'ip': 'localhost'
     'it': 'it'
