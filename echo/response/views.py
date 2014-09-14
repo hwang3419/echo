@@ -14,11 +14,12 @@ k = aiml.Kernel()
 k.loadBrain(B)
 for key, value in config.items():
     k.setPredicate(key, value)
+    k.setBotPredicate(key, value)
 def answer(request):
     msg = request.GET.get('message')
     ip = get_client_ip(request)
     if is_chinese(msg):
-        return HttpResponse('I am still learning chinese, please use English. :)')
+        return HttpResponse('I am still learning Chinese, let\'s chat in English! :)')
     r = k.respond(msg)
     msg = msg.encode('ascii','ignore')
     e = Entry(ask = msg, ip = ip, response = r)
