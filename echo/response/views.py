@@ -20,8 +20,13 @@ def answer(request):
     if is_chinese(msg):
         return HttpResponse('I am still learning chinese, please use English. :)')
     r = k.respond(msg)
+    msg = msg.encode('ascii','ignore')
     e = Entry(ask = msg, ip = ip, response = r)
-    e.save()
+    try:
+        e.save()
+    except Exception,e:
+        print e
+
     return HttpResponse(r)
 
 def home(request):

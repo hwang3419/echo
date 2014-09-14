@@ -13,13 +13,15 @@
           //$("#incomingMessages").append("<div class='message'><span class='username'>" + name + ":</span> " + message + "</div>");
           //$("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
         //}
+        var msgContainer = $('.msgContainerDiv')
+        msgContainer.height($(document).height()*0.5)
         $(document).keypress(function(e){
             if (e.which == 13){
                 $("#chatSendButton").click();
                 return false;
             }
         });
-        for  (i=0;i<20;i++){
+        for  (i=0;i<50;i++){
             $("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> " + "</div>");
         }
         $("#chatSendButton").click(function(){
@@ -39,11 +41,15 @@
               }
             })
           .success(function( data ) {
-             console.log( 'success: '+data );
              $("#incomingMessages").append("<div class='message chatechoubox'><span class='username'>" + 'Echo' + ":</span> " + data + "</div>");
              //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
              $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
-            });
+            })
+          .error(function( data ) {
+             $("#incomingMessages").append("<div class='message chatechoubox'><span class='username'>" + 'Echo' + ":</span> meh... connection failed, please try later.</div>");
+             //$("#incomingMessages").append("<div class='message'><span class='username'>" + "\b</span> "  + "</div>");
+             $("#incomingMessages").scrollTop($("#incomingMessages")[0].scrollHeight);
+            });;
         });
          
       });
@@ -83,7 +89,7 @@
  
         <div data-role="content"> 
         <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv" ></div>
-        <label for="messageText"><strong>Message:</strong></label>
+        <label for="messageText"><strong>Chat with me:</strong></label>
         <textarea name="messageText" id="messageText1"></textarea>
  
         <fieldset class="ui-grid-a">
