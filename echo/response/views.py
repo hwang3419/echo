@@ -22,9 +22,9 @@ def answer(request):
         return HttpResponse('I am still learning Chinese, let\'s chat in English! :)')
     r = k.respond(msg)
     msg = msg.encode('ascii','ignore')
-    e = Entry(ask = msg, ip = ip, response = r)
+    
     try:
-        e.save()
+        Entry.objects.create(ask = msg, ip = ip, response = r)
     except Exception,e:
         print e
 
