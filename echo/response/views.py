@@ -17,9 +17,17 @@ for key, value in config.items():
     k.setBotPredicate(key, value)
 def answer(request):
     msg = request.GET.get('message')
+    try:
+        ismath = do_math(msg)
+        print ismath
+        if ismath:
+            return HttpResponse(ismath)
+    except:
+        pass
     ip = get_client_ip(request)
-    if is_chinese(msg):
-        return HttpResponse('I am still learning Chinese, let\'s chat in English! :)')
+    for s in msg:
+        if is_chinese(s):
+            return HttpResponse('I am still learning Chinese, let\'s chat in English! :)')
     r = k.respond(msg)
     msg = msg.encode('ascii','ignore')
     
@@ -45,3 +53,17 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+def do_math(msg):
+    if '+' in msg or '*' in msg or '-' in msg or '/' in msg:
+        slist = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 43, 45, 42, 47, 40, 41]
+        strip_msg = "".join([i for i in msg if ord(i) in slist ])
+        try:
+            result = eval(strip_msg)
+            if result<50:
+                return '='+ 'bark '* result
+            else:
+                return '='+ 'bark *'+str(result)
+        except:
+            return False
+    return False
