@@ -6,7 +6,34 @@ from django.conf import settings
 from os.path import join
 import yaml
 import aiml
-from models import Entry
+from models import Entry, KeyErr
+
+
+def getBotPredicate(self,name):
+    try: return self._botPredicates[name]
+    except KeyError, e:
+        try:
+            KeyErr.objects.create(keyname = e, fucname = 'getBotPredicate')
+        except Exception, e:
+            print e
+        return ""
+
+
+def getPredicate(self, name, sessionID = "_global"):
+    try: return self._sessions[sessionID][name]
+    except KeyError, e:
+        try:
+            KeyErr.objects.create(keyname = e, fucname = 'getPredicate')
+        except Exception,e:
+            print e
+        return ""
+
+
+aiml.Kernel.getBotPredicate = getBotPredicate
+aiml.Kernel.getPredicate = getPredicate
+
+
+# bot setup
 B = join(settings.ROOT_DIR,'brain')
 C = join(settings.ROOT_DIR,'config.yaml')
 config = yaml.safe_load(open(C))
@@ -15,11 +42,12 @@ k.loadBrain(B)
 for key, value in config.items():
     k.setPredicate(key, value)
     k.setBotPredicate(key, value)
+
+
 def answer(request):
     msg = request.GET.get('message')
     try:
         ismath = do_math(msg)
-        print ismath
         if ismath:
             return HttpResponse(ismath)
     except:
@@ -38,14 +66,19 @@ def answer(request):
 
     return HttpResponse(r)
 
+
 def home(request):
     return render_to_response('home.html')
+
+
 
 def is_chinese(uchar):
         if uchar >= u'\u4e00' and uchar<=u'\u9fa5':
                 return True
         else:
                 return False
+
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -53,6 +86,7 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
 
 def do_math(msg):
     if '+' in msg or '*' in msg or '-' in msg or '/' in msg:
